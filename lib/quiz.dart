@@ -15,6 +15,7 @@ class Quiz extends StatefulWidget {
 class _QuizState extends State<Quiz> {
   List<String> selectedAnswers = [];
   var activeScreen = 'start-screen';
+  var currentQuestionIndex = 0;
 
   void switchScreen() {
     setState(() {
@@ -22,12 +23,26 @@ class _QuizState extends State<Quiz> {
     });
   }
 
-  void chooseAnswers(String answer) {
+  void chooseAnswer(String answer) {
     selectedAnswers.add(answer);
 
-    if (selectedAnswers.length == questions.length) {
+    if (currentQuestionIndex + 1 >= questions.length) {
       setState(() {
         activeScreen = 'results-screen';
+      });
+    } else {
+      setState(() {
+        currentQuestionIndex++;
+      });
+    }
+  }
+
+  // Go back to the previous question (if not on the first question)
+  void goBack() {
+    if (currentQuestionIndex > 0) {
+      setState(() {
+        selectedAnswers.removeLast(); // Remove the last selected answer
+        currentQuestionIndex--; // Move back to the previous question
       });
     }
   }
@@ -36,6 +51,7 @@ class _QuizState extends State<Quiz> {
     setState(() {
       selectedAnswers = [];
       activeScreen = 'start-screen';
+      currentQuestionIndex = 0;
     });
   }
 
@@ -45,7 +61,12 @@ class _QuizState extends State<Quiz> {
 
     if (activeScreen == 'question-screen') {
       screenWidget = QuestionsScreen(
-        onSelectAnswer: chooseAnswers,
+        onSelectAnswer: chooseAnswer,
+        onGoBack: goBack, // Provide the back functionality
+        canGoBack:
+            currentQuestionIndex > 0, // Enable back button after first question
+        currentQuestionIndex:
+            currentQuestionIndex, // Pass the current question index
       );
     }
 

@@ -4,9 +4,19 @@ import 'package:quiz_app_1/answer_button.dart';
 import 'package:quiz_app_1/data/questions.dart';
 
 class QuestionsScreen extends StatefulWidget {
-  const QuestionsScreen({super.key, required this.onSelectAnswer});
+  const QuestionsScreen({
+    super.key,
+    required this.onSelectAnswer,
+    required this.onGoBack,
+    required this.canGoBack,
+    required this.currentQuestionIndex, // Accept the currentQuestionIndex from the parent
+  });
 
   final void Function(String answer) onSelectAnswer;
+  final void Function() onGoBack; // Callback for going back
+  final bool
+      canGoBack; // Whether the user can go back (only true after the first question)
+  final int currentQuestionIndex; // The current question index
 
   @override
   State<QuestionsScreen> createState() {
@@ -15,18 +25,9 @@ class QuestionsScreen extends StatefulWidget {
 }
 
 class _QuestionsScreenState extends State<QuestionsScreen> {
-  var currentQuestionIndex = 0;
-
-  void answerQuestion(String selectAnswer) {
-    widget.onSelectAnswer(selectAnswer);
-    setState(() {
-      currentQuestionIndex++;
-    });
-  }
-
   @override
-  Widget build(context) {
-    final currentQuestion = questions[currentQuestionIndex];
+  Widget build(BuildContext context) {
+    final currentQuestion = questions[widget.currentQuestionIndex];
 
     return SizedBox(
       width: double.infinity,
@@ -50,10 +51,23 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               return AnswerButton(
                 answerText: answer,
                 onTap: () {
-                  answerQuestion(answer);
+                  widget.onSelectAnswer(answer);
                 },
               );
-            })
+            }).toList(),
+            const SizedBox(height: 20),
+            // Add a back button with conditional disabling based on whether going back is allowed.
+            ElevatedButton(
+              onPressed: widget.canGoBack
+                  ? widget.onGoBack
+                  : null, // Disable if not allowed to go back
+              style: ElevatedButton.styleFrom(
+                backgroundColor: widget.canGoBack
+                    ? Colors.blue
+                    : Colors.grey, // Gray out button when disabled
+              ),
+              child: const Text('Go Back'),
+            ),
           ],
         ),
       ),
