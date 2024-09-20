@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class QuestionIdentifier extends StatelessWidget {
   const QuestionIdentifier({
+    super.key,
     superkey,
     required this.isCorrectAnswer,
     required this.questionIndex,

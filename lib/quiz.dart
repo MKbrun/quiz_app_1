@@ -19,7 +19,14 @@ class _QuizState extends State<Quiz> {
 
   void switchScreen() {
     setState(() {
-      activeScreen = 'question-screen';
+      // If they have already started the quiz, resume from the current question
+      if (selectedAnswers.isNotEmpty) {
+        activeScreen =
+            'question-screen'; // Resume the quiz from where they left off
+      } else {
+        activeScreen =
+            'question-screen'; // If they haven't started, start a new quiz
+      }
     });
   }
 
@@ -47,6 +54,13 @@ class _QuizState extends State<Quiz> {
     }
   }
 
+  void goToMainMenu() {
+    setState(() {
+      activeScreen =
+          'start-screen'; // Only switch the screen to the start screen
+    });
+  }
+
   void restartQuiz() {
     setState(() {
       selectedAnswers = [];
@@ -67,6 +81,7 @@ class _QuizState extends State<Quiz> {
             currentQuestionIndex > 0, // Enable back button after first question
         currentQuestionIndex:
             currentQuestionIndex, // Pass the current question index
+        onGoToMainMenu: goToMainMenu,
       );
     }
 

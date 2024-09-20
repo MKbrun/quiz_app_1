@@ -9,14 +9,16 @@ class QuestionsScreen extends StatefulWidget {
     required this.onSelectAnswer,
     required this.onGoBack,
     required this.canGoBack,
-    required this.currentQuestionIndex, // Accept the currentQuestionIndex from the parent
+    required this.currentQuestionIndex,
+    required this.onGoToMainMenu, // Accept the currentQuestionIndex from the parent
   });
 
   final void Function(String answer) onSelectAnswer;
   final void Function() onGoBack; // Callback for going back
   final bool
       canGoBack; // Whether the user can go back (only true after the first question)
-  final int currentQuestionIndex; // The current question index
+  final int currentQuestionIndex;
+  final void Function() onGoToMainMenu; // The current question index
 
   @override
   State<QuestionsScreen> createState() {
@@ -62,11 +64,21 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                   ? widget.onGoBack
                   : null, // Disable if not allowed to go back
               style: ElevatedButton.styleFrom(
-                backgroundColor: widget.canGoBack
-                    ? Colors.blue
-                    : Colors.grey, // Gray out button when disabled
+                backgroundColor: widget.canGoBack ? Colors.blue : Colors.grey,
+                foregroundColor: Colors.white, // Gray out button when disabled
               ),
-              child: const Text('Go Back'),
+              child: const Text('Previous Question'),
+            ),
+            const SizedBox(height: 10),
+            // "Main Menu" button
+            ElevatedButton(
+              onPressed: widget.onGoToMainMenu,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(
+                    255, 0, 51, 102), // Dark blue background
+                foregroundColor: Colors.white, // White text
+              ),
+              child: const Text('Main Menu'),
             ),
           ],
         ),
