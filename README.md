@@ -1,16 +1,29 @@
 # quiz_app_1
 
-A new Flutter project.
+A simple Flutter application that presents a quiz to users, evaluates their answers, and displays their results at the end. The app is built using `StatefulWidget` and `StatelessWidget` to manage different screens and user inputs.
+This mobile app was made as an assignment from Mobile Application course on NTNU.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Start the quiz with a single button press
+- Multiple choice questions with randomized answer options
+- Displays results and correct answers after the quiz
+- Option to restart quiz
+- Option to go back to previous question
 
-A few resources to get you started if this is your first Flutter project:
+## How to run
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. Clone this repository
+2. cd flutter-quiz-app
+3. flutter pub get
+4. flutter run
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Additional Information
+
+For more detailed information, please refer to the [Wiki](https://github.com/MKbrun/quiz_app_1/wiki).
+
+* App Architecture: [Read Wiki](https://github.com/MKbrun/quiz_app_1/wiki/Report)
+* User Stories: [Read Wiki](https://github.com/MKbrun/quiz_app_1/wiki/Report)
+* Code Structure: [Read Wiki](https://github.com/MKbrun/quiz_app_1/wiki/Report)
+* Class diagram: [Read Wiki](https://github.com/MKbrun/quiz_app_1/wiki/Class-diagram)
+* Project Report: [Read Wiki](https://github.com/MKbrun/quiz_app_1/wiki/Report)
