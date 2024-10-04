@@ -10,7 +10,7 @@ class QuestionsScreen extends StatefulWidget {
     required this.onGoBack,
     required this.canGoBack,
     required this.currentQuestionIndex,
-    required this.onGoToMainMenu, // Accept the currentQuestionIndex from the parent
+    required this.onGoToMainMenu,
   });
 
   final void Function(String answer) onSelectAnswer;
@@ -58,14 +58,13 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               );
             }).toList(),
             const SizedBox(height: 20),
-            // Add a back button with conditional disabling based on whether going back is allowed.
             ElevatedButton(
               onPressed: widget.canGoBack
                   ? widget.onGoBack
                   : null, // Disable if not allowed to go back
               style: ElevatedButton.styleFrom(
                 backgroundColor: widget.canGoBack ? Colors.blue : Colors.grey,
-                foregroundColor: Colors.white, // Gray out button when disabled
+                foregroundColor: Colors.white,
               ),
               child: const Text('Previous Question'),
             ),
@@ -74,9 +73,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             ElevatedButton(
               onPressed: widget.onGoToMainMenu,
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(
-                    255, 0, 51, 102), // Dark blue background
-                foregroundColor: Colors.white, // White text
+                backgroundColor: const Color.fromARGB(255, 0, 51, 102),
+                foregroundColor: Colors.white,
               ),
               child: const Text('Main Menu'),
             ),
